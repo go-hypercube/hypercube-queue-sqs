@@ -1,0 +1,77 @@
+version: "2"
+
+formatters:
+  enable:
+    # format the code
+    - gofumpt
+
+    # format the imports
+    - goimports
+
+linters:
+  # some linters are enabled by default
+  # https://golangci-lint.run/usage/linters/
+  #
+  # enable some extra linters
+  enable:
+    # Errcheck is a program for checking for unchecked errors in Go code.
+    - errcheck
+
+    # Vet examines Go source code and reports suspicious constructs.
+    - govet
+
+    # Detects when assignments to existing variables are not used.
+    - ineffassign
+
+    # It's a set of rules from staticcheck. See https://staticcheck.io/
+    - staticcheck
+
+    # Checks Go code for unused constants, variables, functions and types.
+    - unused
+
+    # Fast, configurable, extensible, flexible, and beautiful linter for Go.
+    # Drop-in replacement of golint.
+    # - revive
+
+    # make sure to use t.Helper() when needed
+    - thelper
+
+    # mirror suggests rewrites to avoid unnecessary []byte/string conversion
+    - mirror
+
+    # detect the possibility to use variables/constants from the Go standard library.
+    - usestdlibvars
+
+    # Finds commonly misspelled English words.
+    - misspell
+
+    # Checks for duplicate words in the source code.
+    - dupword
+
+    # linter to detect errors invalid key values count
+    - loggercheck
+
+    # detect when a package or method could be replaced by one from the standard library
+    - exptostd
+
+    # detects nested contexts in loops or function literals
+    - fatcontext
+
+    # Reports uses of functions with replacement inside the testing package.
+    - usetesting
+
+  settings:
+    errcheck:
+      exclude-functions:
+        - (*database/sql.Rows).Close
+    misspell:
+      locale: US
+      # List of words to ignore
+      # among the one defined in https://github.com/golangci/misspell/blob/master/words.go
+      ignore-rules: []
+
+output:
+  sort-order:
+    - linter
+    - severity
+    - file
